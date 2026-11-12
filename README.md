@@ -26,3 +26,8 @@ docker compose -f docker-compose.yaml up --build
 Use the corresponding Compose file for the home/visited local-breakout variants. Stop the chosen stack with docker compose down using the same file.
 
 This repository provides container definitions, not an Open5GS source distribution. The public Compose configuration contains static MongoDB/Mongo Express credentials. Treat them as exposed, rotate them if reused, and replace them with private local configuration before starting services.
+
+<!-- managed credential setup -->
+## Local credentials
+
+Copy `.env.example` to `.env` and set the MongoDB and Mongo Express values required by the selected Compose file. Compose now fails fast when a required connection value is missing. Keep `.env` untracked and rotate any credentials that were previously committed.
