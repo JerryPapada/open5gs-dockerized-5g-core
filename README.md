@@ -1,33 +1,26 @@
-# Open5gs Docker
+# Open5GS Dockerized Core Network
 
-dockerized open5gs
+Container definitions and Compose profiles for running Open5GS network functions in local core-network experiments.
 
-## Overview
+## Included services
 
-This repository contains the source code, documentation, and supporting assets for **Open5gs Docker**. It is maintained as a focused project workspace with version-controlled implementation and project material.
+The repository builds or configures Open5GS functions such as AMF, AUSF, NRF, SMF, UPF, and WebUI, alongside MongoDB and monitoring services. Compose files cover a default setup and home/visited local-breakout variants.
 
-## Repository contents
+## Requirements
 
-- `README.md`
-- `amf`
-- `ausf`
-- `base`
-- `bsf`
-- `configs`
-- `db`
-- `docker-compose-home-lbo.yaml`
-- `docker-compose-visited-lbo.yaml`
-- `docker-compose.yaml`
-- `nrf`
-- `nssf`
-- `pcf`
-- `prometheus`
-- `sepp`
+- Docker Engine and Docker Compose
+- A compatible Open5GS release
+- Host networking/DNS configuration for the selected deployment
+- The environment variables and configuration files referenced by the Compose files
 
-## Getting started
+The Compose configurations expect an `.env` file and use `OPEN5GS_VERSION`, but no environment template is included. Prepare those values and review exposed host ports before starting the stack.
 
-Review the project files and any included configuration or documentation before running the application. Install dependencies using the package manager indicated by the project files, then use the repository's scripts, notebooks, or entry points for development and evaluation.
+## Start
 
-## Development notes
+From the repository root, select the deployment profile you intend to use and run its Compose file, for example:
 
-Keep generated artifacts, local configuration, credentials, and large datasets out of commits unless they are intentionally part of the project. Record significant setup requirements and experiment parameters alongside the relevant component.
+```bash
+docker compose -f docker-compose.yaml up --build
+```
+
+The repository is a deployment configuration, not a bundled Open5GS source distribution. The public Compose file contains static database credentials; rotate them and replace them with private configuration before exposing the services.
