@@ -1,26 +1,28 @@
 # Open5GS Dockerized Core Network
 
-Container definitions and Compose profiles for running Open5GS network functions in local core-network experiments.
+Dockerfiles and Compose profiles for local Open5GS core-network experiments. The profiles combine Open5GS functions with MongoDB, WebUI, Prometheus, and home/visited local-breakout configurations.
 
-## Included services
+## Services and profiles
 
-The repository builds or configures Open5GS functions such as AMF, AUSF, NRF, SMF, UPF, and WebUI, alongside MongoDB and monitoring services. Compose files cover a default setup and home/visited local-breakout variants.
+The Compose files define core functions including AMF, AUSF, NRF, SMF, and UPF, plus database, web, and monitoring components. Separate Compose configurations describe default and local-breakout layouts. Select one deployment profile and review its network, port, and bind-mount assumptions before starting it.
 
-## Requirements
+## Requirements and configuration
 
 - Docker Engine and Docker Compose
-- A compatible Open5GS release
-- Host networking/DNS configuration for the selected deployment
-- The environment variables and configuration files referenced by the Compose files
+- A compatible Open5GS release/build configuration
+- Host networking, DNS, and service-address settings for the selected topology
+- The environment values and configuration files referenced by Compose
 
-The Compose configurations expect an `.env` file and use `OPEN5GS_VERSION`, but no environment template is included. Prepare those values and review exposed host ports before starting the stack.
+Compose expects an .env file containing OPEN5GS_VERSION, but the repository does not include an environment template. Prepare that variable and any required host configuration from the selected Compose file before startup.
 
-## Start
+## Start a selected profile
 
-From the repository root, select the deployment profile you intend to use and run its Compose file, for example:
+For the default profile:
 
 ```bash
 docker compose -f docker-compose.yaml up --build
 ```
 
-The repository is a deployment configuration, not a bundled Open5GS source distribution. The public Compose file contains static database credentials; rotate them and replace them with private configuration before exposing the services.
+Use the corresponding Compose file for the home/visited local-breakout variants. Stop the chosen stack with docker compose down using the same file.
+
+This repository provides container definitions, not an Open5GS source distribution. The public Compose configuration contains static MongoDB/Mongo Express credentials. Treat them as exposed, rotate them if reused, and replace them with private local configuration before starting services.
