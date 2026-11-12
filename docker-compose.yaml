@@ -6,8 +6,8 @@ services:
     ports:
       - "0.0.0.0:27017:27017/tcp"
     # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: user
-    #   MONGO_INITDB_ROOT_PASSWORD: pass
+    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?Set MONGO_ROOT_USERNAME in .env}
+    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?Set MONGO_ROOT_PASSWORD in .env}
     restart: unless-stopped
     networks:
       open5gs:
@@ -26,10 +26,10 @@ services:
     ports:
       - "8888:8081"
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://mongodb:27017/
+      ME_CONFIG_MONGODB_URL: ${ME_CONFIG_MONGODB_URL:?Set ME_CONFIG_MONGODB_URL in .env}
       ME_CONFIG_MONGODB_PORT: 27017
-      # ME_CONFIG_ADMINUSERNAME: user
-      # ME_CONFIG_ADMINPASSWORD: pass
+      # ME_CONFIG_ADMINUSERNAME: ${MONGO_EXPRESS_USERNAME:?Set MONGO_EXPRESS_USERNAME in .env}
+      # ME_CONFIG_ADMINPASSWORD: ${MONGO_EXPRESS_PASSWORD:?Set MONGO_EXPRESS_PASSWORD in .env}
     networks:
       open5gs:
         aliases:
@@ -51,7 +51,7 @@ services:
       ports:
         - "0.0.0.0:9999:9999"
       environment:
-        - DB_URI=mongodb://db.open5gs.org/open5gs
+        - DB_URI=${OPEN5GS_MONGODB_URI:?Set OPEN5GS_MONGODB_URI in .env}
         - WAIT_HOSTS=mongodb:27017
       networks:
         open5gs:
